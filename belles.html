@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Belle's Coffeehouse — Downtown Big Rapids, MI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream:   #faf6f0;
+    --warm:    #f5ede0;
+    --tan:     #e8d5bc;
+    --brown:   #7c5c3e;
+    --dark:    #2c1f14;
+    --espresso:#1a0f08;
+    --sage:    #8a9e7e;
+    --rust:    #b85c38;
+    --gold:    #c9933a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(250,246,240,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(124,92,62,0.1);
+  }
+  .nav-logo {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 32px;
+    color: var(--brown);
+    line-height: 1;
+  }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brown);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-order {
+    background: var(--brown);
+    color: var(--cream) !important;
+    opacity: 1 !important;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 12px !important;
+    letter-spacing: 0.1em !important;
+  }
+  .nav-order:hover { background: var(--dark) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 64px 80px 72px;
+    position: relative;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 28px;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 28px; height: 1px;
+    background: var(--rust);
+  }
+  .hero-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 6vw, 82px);
+    line-height: 1.06;
+    color: var(--espresso);
+    margin-bottom: 12px;
+  }
+  .hero-h1 em {
+    font-style: italic;
+    color: var(--brown);
+  }
+  .hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--brown);
+    line-height: 1.7;
+    max-width: 380px;
+    margin-bottom: 44px;
+    opacity: 0.85;
+  }
+  .hero-ctas { display: flex; gap: 14px; align-items: center; }
+  .btn-primary {
+    background: var(--espresso);
+    color: var(--cream);
+    padding: 15px 34px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--brown); transform: translateY(-2px); }
+  .btn-secondary {
+    color: var(--brown);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.75;
+    transition: opacity 0.2s;
+  }
+  .btn-secondary:hover { opacity: 1; }
+  .btn-secondary::after { content: '→'; }
+
+  .hero-hours {
+    position: absolute;
+    bottom: 48px; left: 72px;
+    display: flex;
+    gap: 32px;
+  }
+  .hours-item { }
+  .hours-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .hours-val {
+    font-size: 13px;
+    color: var(--brown);
+    opacity: 0.8;
+  }
+
+  /* Hero right — warm photo collage */
+  .hero-right {
+    position: relative;
+    background: var(--warm);
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 70% 30%, rgba(201,147,58,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse at 30% 80%, rgba(184,92,56,0.12) 0%, transparent 50%),
+      linear-gradient(135deg, #e8d5bc 0%, #d4b896 50%, #c9a87a 100%);
+  }
+  .hero-coffee-visual {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* SVG coffee cup illustration */
+  .coffee-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(124,92,62,0.15);
+  }
+  .ring-1 { width: 320px; height: 320px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .ring-2 { width: 480px; height: 480px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .ring-3 { width: 640px; height: 640px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+
+  .coffee-card {
+    position: absolute;
+    background: rgba(250,246,240,0.92);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 18px 22px;
+    box-shadow: 0 8px 40px rgba(44,31,20,0.12);
+  }
+  .card-top-left {
+    top: 80px; left: 40px;
+    width: 160px;
+  }
+  .card-bottom-right {
+    bottom: 80px; right: 40px;
+    width: 150px;
+    text-align: right;
+  }
+  .card-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .card-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--espresso);
+    line-height: 1.2;
+  }
+  .card-sub {
+    font-size: 11px;
+    color: var(--brown);
+    opacity: 0.65;
+    margin-top: 3px;
+  }
+
+  /* Big coffee cup SVG in center */
+  .cup-wrap {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── MARQUEE STRIP ── */
+  .marquee-strip {
+    background: var(--espresso);
+    color: var(--tan);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-flex;
+    animation: marquee 22s linear infinite;
+    gap: 0;
+  }
+  .marquee-item {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0 28px;
+    opacity: 0.75;
+  }
+  .marquee-dot {
+    color: var(--gold);
+    opacity: 1;
+  }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── ABOUT ── */
+  .about {
+    padding: 120px 72px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .about-text { }
+  .section-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-tag::before { content: ''; width: 24px; height: 1px; background: var(--rust); }
+  .section-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    line-height: 1.12;
+    color: var(--espresso);
+    margin-bottom: 24px;
+  }
+  .section-h2 em { font-style: italic; color: var(--brown); }
+  .section-body {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--brown);
+    opacity: 0.85;
+    max-width: 440px;
+  }
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 40px;
+  }
+  .stat {
+    background: var(--warm);
+    padding: 24px;
+    border-radius: 4px;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: var(--espresso);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brown);
+    opacity: 0.6;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+  .about-photo-main {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: linear-gradient(160deg, #d4b896, #c9a87a, #b8935a);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .about-photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(44,31,20,0.4) 0%, transparent 60%);
+  }
+  .about-photo-text {
+    position: absolute;
+    bottom: 28px; left: 28px;
+    color: var(--cream);
+  }
+  .about-photo-text .name {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 42px;
+    line-height: 1;
+  }
+  .about-photo-text .title {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-top: 4px;
+  }
+  .about-badge {
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 100px; height: 100px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--espresso);
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(201,147,58,0.35);
+  }
+  .badge-main { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; }
+  .badge-sub { font-size: 8px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; }
+
+  /* ── MENU ── */
+  .menu {
+    background: var(--espresso);
+    padding: 120px 72px;
+  }
+  .menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 64px;
+  }
+  .menu-header .section-tag { color: var(--gold); }
+  .menu-header .section-tag::before { background: var(--gold); }
+  .menu-header .section-h2 { color: var(--cream); margin-bottom: 0; }
+  .menu-header .section-h2 em { color: var(--tan); }
+  .menu-note {
+    font-size: 13px;
+    color: var(--tan);
+    opacity: 0.5;
+    max-width: 200px;
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .menu-category {
+    background: rgba(255,255,255,0.04);
+    padding: 40px 36px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .menu-category:hover { background: rgba(255,255,255,0.07); }
+  .cat-icon { font-size: 28px; margin-bottom: 16px; }
+  .cat-name {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .menu-items { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .item-name {
+    font-size: 15px;
+    color: var(--cream);
+    font-weight: 400;
+  }
+  .item-dot {
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 0 4px;
+    margin-bottom: 3px;
+  }
+  .item-price {
+    font-size: 13px;
+    color: var(--tan);
+    opacity: 0.55;
+    white-space: nowrap;
+  }
+  .item-desc {
+    font-size: 11px;
+    color: var(--tan);
+    opacity: 0.4;
+    margin-top: 2px;
+    line-height: 1.5;
+  }
+
+  /* ── VIBE SECTION ── */
+  .vibe {
+    padding: 120px 72px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    background: var(--warm);
+  }
+  .vibe-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .vibe-card:nth-child(2) { margin-top: 48px; }
+  .vibe-card:nth-child(3) { margin-top: -24px; }
+  .vibe-bg {
+    position: absolute;
+    inset: 0;
+  }
+  .vibe-bg-1 { background: linear-gradient(160deg, #c9a87a, #8a9e7e, #b8935a); }
+  .vibe-bg-2 { background: linear-gradient(160deg, #b85c38, #c9933a, #7c5c3e); }
+  .vibe-bg-3 { background: linear-gradient(160deg, #8a9e7e, #c9a87a, #e8d5bc); }
+  .vibe-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26,15,8,0.7) 0%, transparent 50%);
+  }
+  .vibe-label {
+    position: absolute;
+    bottom: 24px; left: 24px;
+    color: var(--cream);
+  }
+  .vibe-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .vibe-sub {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+  .vibe-tag {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: rgba(250,246,240,0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(250,246,240,0.2);
+    color: var(--cream);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 999px;
+  }
+
+  /* ── VISIT ── */
+  .visit {
+    padding: 120px 72px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .visit-map {
+    aspect-ratio: 4/3;
+    background: var(--tan);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .map-placeholder {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #e8d5bc, #d4b896, #c9a87a);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .map-pin {
+    width: 48px; height: 48px;
+    background: var(--brown);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    position: relative;
+    box-shadow: 0 4px 20px rgba(124,92,62,0.4);
+  }
+  .map-pin::after {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    background: var(--cream);
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+  }
+  .map-address {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--espresso);
+    text-align: center;
+    line-height: 1.4;
+  }
+  .map-city {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brown);
+    opacity: 0.65;
+  }
+
+  .visit-info { padding-top: 8px; }
+  .visit-hours { margin-top: 32px; }
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(124,92,62,0.1);
+    font-size: 14px;
+  }
+  .hours-day { color: var(--brown); opacity: 0.7; }
+  .hours-time { color: var(--espresso); font-weight: 500; }
+  .hours-closed { color: var(--brown); opacity: 0.35; }
+
+  .visit-contact {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--brown);
+    text-decoration: none;
+    opacity: 0.75;
+    transition: opacity 0.2s;
+  }
+  .contact-item:hover { opacity: 1; }
+  .contact-icon {
+    width: 36px; height: 36px;
+    background: var(--warm);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--espresso);
+    padding: 48px 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 36px;
+    color: var(--tan);
+  }
+  .footer-tagline {
+    font-size: 12px;
+    color: var(--tan);
+    opacity: 0.4;
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+  }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tan);
+    opacity: 0.45;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .footer-links a:hover { opacity: 0.85; }
+  .footer-social { display: flex; gap: 12px; }
+  .social-btn {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--tan);
+    font-size: 14px;
+    text-decoration: none;
+    opacity: 0.6;
+    transition: opacity 0.2s, background 0.2s;
+  }
+  .social-btn:hover { opacity: 1; background: rgba(255,255,255,0.1); }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .about, .visit { grid-template-columns: 1fr; gap: 48px; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .vibe { grid-template-columns: 1fr; }
+    .vibe-card:nth-child(2), .vibe-card:nth-child(3) { margin-top: 0; }
+    nav { padding: 16px 24px; }
+    .hero-left { padding: 60px 24px 60px 24px; }
+    .about, .visit, .menu, .vibe { padding: 80px 24px; }
+    footer { flex-direction: column; gap: 24px; text-align: center; padding: 40px 24px; }
+    .hero-hours { left: 24px; }
+    .nav-links a:not(.nav-order) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Belle's</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#visit">Visit</a>
+    <a href="#visit" class="nav-order">Order Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-tag">Downtown Big Rapids, MI</div>
+    <h1 class="hero-h1">Your favorite<br><em>little corner</em><br>of town.</h1>
+    <p class="hero-sub">Handcrafted coffee, homemade baked goods, and a warm place to slow down — right in the heart of Big Rapids.</p>
+    <div class="hero-ctas">
+      <a href="#menu" class="btn-primary">See the Menu</a>
+      <a href="#visit" class="btn-secondary">Find Us</a>
+    </div>
+    <div class="hero-hours">
+      <div class="hours-item">
+        <div class="hours-label">Mon – Fri</div>
+        <div class="hours-val">7am – 3pm</div>
+      </div>
+      <div class="hours-item">
+        <div class="hours-label">Saturday</div>
+        <div class="hours-val">9am – 4pm</div>
+      </div>
+      <div class="hours-item">
+        <div class="hours-label">Sunday</div>
+        <div class="hours-val">Closed</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg"></div>
+    <div class="coffee-ring ring-1"></div>
+    <div class="coffee-ring ring-2"></div>
+    <div class="coffee-ring ring-3"></div>
+    <div class="coffee-card card-top-left">
+      <div class="card-label">Fan Favorite</div>
+      <div class="card-value">Miel Latte</div>
+      <div class="card-sub">Honey · Espresso · Milk</div>
+    </div>
+    <div class="coffee-card card-bottom-right">
+      <div class="card-label">New This Season</div>
+      <div class="card-value">Lavender<br>London Fog</div>
+      <div class="card-sub">Floral · Smooth · Dreamy</div>
+    </div>
+    <div class="hero-coffee-visual">
+      <svg width="220" height="260" viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Cup body -->
+        <path d="M50 90 L170 90 L155 230 L65 230 Z" fill="#7c5c3e" opacity="0.9"/>
+        <!-- Cup rim -->
+        <ellipse cx="110" cy="90" rx="60" ry="12" fill="#6b4e32"/>
+        <!-- Coffee surface -->
+        <ellipse cx="110" cy="90" rx="54" ry="10" fill="#4a2e1a"/>
+        <!-- Coffee foam/swirl -->
+        <ellipse cx="110" cy="90" rx="38" ry="7" fill="#7c5c3e" opacity="0.5"/>
+        <path d="M88 88 Q100 84 112 88 Q124 92 136 88" stroke="#c9a87a" strokeWidth="2" fill="none" opacity="0.6"/>
+        <!-- Handle -->
+        <path d="M170 120 Q205 120 205 155 Q205 190 170 190" stroke="#6b4e32" strokeWidth="10" fill="none" strokeLinecap="round"/>
+        <!-- Saucer -->
+        <ellipse cx="110" cy="238" rx="80" ry="14" fill="#8a7060" opacity="0.4"/>
+        <ellipse cx="110" cy="235" rx="72" ry="10" fill="#7c5c3e" opacity="0.6"/>
+        <!-- Steam -->
+        <path d="M85 70 Q80 55 85 40 Q90 25 85 10" stroke="#e8d5bc" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.45">
+          <animate attributeName="opacity" values="0.45;0.1;0.45" dur="2.5s" repeatCount="indefinite"/>
+          <animate attributeName="d" values="M85 70 Q80 55 85 40 Q90 25 85 10;M85 70 Q92 55 87 40 Q82 25 87 10;M85 70 Q80 55 85 40 Q90 25 85 10" dur="2.5s" repeatCount="indefinite"/>
+        </path>
+        <path d="M110 68 Q105 53 110 38 Q115 23 110 8" stroke="#e8d5bc" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.35">
+          <animate attributeName="opacity" values="0.35;0.08;0.35" dur="3s" begin="0.5s" repeatCount="indefinite"/>
+        </path>
+        <path d="M135 70 Q140 55 135 40 Q130 25 135 10" stroke="#e8d5bc" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.4">
+          <animate attributeName="opacity" values="0.4;0.08;0.4" dur="2.8s" begin="1s" repeatCount="indefinite"/>
+        </path>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span class="marquee-item">Handcrafted Espresso</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Fresh Baked Daily</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Belgium Waffles</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Live Music Events</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Downtown Big Rapids</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Seasonal Specials</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Handcrafted Espresso</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Fresh Baked Daily</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Belgium Waffles</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Live Music Events</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Downtown Big Rapids</span><span class="marquee-item marquee-dot">✦</span>
+    <span class="marquee-item">Seasonal Specials</span><span class="marquee-item marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-text reveal">
+    <div class="section-tag">Our Story</div>
+    <h2 class="section-h2">More than coffee.<br>It's a <em>feeling.</em></h2>
+    <p class="section-body">Belle's Coffeehouse was born from a simple dream — to give Big Rapids a cozy, welcoming spot where you can slow down, connect, and enjoy something truly made with care. Founded by Belle Whipple, every cup is crafted with intention and every corner was designed to feel like home.</p>
+    <div class="about-stats">
+      <div class="stat reveal reveal-delay-1">
+        <div class="stat-num">2024</div>
+        <div class="stat-label">Est. Downtown</div>
+      </div>
+      <div class="stat reveal reveal-delay-2">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">5-Star Reviews</div>
+      </div>
+      <div class="stat reveal reveal-delay-3">
+        <div class="stat-num">Daily</div>
+        <div class="stat-label">Fresh Baked Goods</div>
+      </div>
+      <div class="stat reveal reveal-delay-1">
+        <div class="stat-num">Local</div>
+        <div class="stat-label">Women Owned</div>
+      </div>
+    </div>
+  </div>
+  <div class="about-visual reveal reveal-delay-2">
+    <div class="about-photo-main">
+      <!-- Placeholder for real photo -->
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0.15;">
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <rect x="10" y="10" width="100" height="100" rx="8" stroke="#7c5c3e" strokeWidth="2" strokeDasharray="6 4"/>
+          <circle cx="60" cy="48" r="18" stroke="#7c5c3e" strokeWidth="2"/>
+          <path d="M20 100 Q40 72 60 80 Q80 88 100 68" stroke="#7c5c3e" strokeWidth="2" fill="none"/>
+          <text x="60" y="115" textAnchor="middle" fill="#7c5c3e" fontSize="10" fontFamily="sans-serif">Add Photo</text>
+        </svg>
+      </div>
+      <div class="about-photo-overlay"></div>
+      <div class="about-photo-text">
+        <div class="name">Belle</div>
+        <div class="title">Owner & Founder</div>
+      </div>
+    </div>
+    <div class="about-badge">
+      <div class="badge-main">★★★★★</div>
+      <div class="badge-sub">Customer Rated</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu" id="menu">
+  <div class="menu-header reveal">
+    <div>
+      <div class="section-tag">What We Make</div>
+      <h2 class="section-h2">The <em>menu.</em></h2>
+    </div>
+    <p class="menu-note">Seasonal items rotate. Ask your barista what's new.</p>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-category reveal">
+      <div class="cat-icon">☕</div>
+      <div class="cat-name">Espresso Drinks</div>
+      <ul class="menu-items">
+        <li>
+          <div>
+            <div class="menu-item">
+              <span class="item-name">Miel Latte</span>
+              <span class="item-dot"></span>
+              <span class="item-price">$5.50</span>
+            </div>
+            <div class="item-desc">Honey, espresso, steamed milk</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="menu-item">
+              <span class="item-name">Caramel Latte</span>
+              <span class="item-dot"></span>
+              <span class="item-price">$5.50</span>
+            </div>
+            <div class="item-desc">House caramel, espresso, milk</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="menu-item">
+              <span class="item-name">Shaken Maple Espresso</span>
+              <span class="item-dot"></span>
+              <span class="item-price">$6.00</span>
+            </div>
+            <div class="item-desc">Iced, shaken with maple syrup</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="menu-item">
+              <span class="item-name">Breve Latte</span>
+              <span class="item-dot"></span>
+              <span class="item-price">$6.00</span>
+            </div>
+            <div class="item-desc">Half & half, rich & creamy</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="menu-category reveal reveal-delay-1">
+      <div class="cat-icon">🍵</div>
+      <div class="cat-name">Teas & Specialty</div>
+      <ul class="menu-items">
+        <li>
+          <div>
+            <div class="menu-item">
+              <span class="item-name">London Fog</span>
+              <span class="item-dot"></span>
+              <span class="item-price">$5.00</span>
+            </div>
+            <div class="item-desc">Earl grey, vanilla, steamed milk</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="menu-item">
+              <span class="item-name">Lavender London Fog</span>
+              <span class="item-dot"></span>
+              <span class="item-price">$5.50</span>
+            </div>
+            <div class="item-desc">Floral, dreamy, perfect iced</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="menu-item">
+              <span class="item-name">Iced Matcha Latte</span>
+              <span class="item-dot"></span>
+              <span class="item-price">$5.50</span>
+            </div>
+            <div class="item-desc">Ceremonial grade, oat milk</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="menu-item">
+              <span class="item-name">Affogato</span>
+              <span class="item-dot"></span>
+              <span class="item-price">$6.50</span>
+            </div>
+            <div class="item-desc">Housemade vanilla ice cream + espresso</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="menu-category reveal reveal-delay-2">
+      <div class="cat-icon">🥐</div>
+      <div class="cat-name">Food & Baked Goods</div>
+      <ul class="menu-items">
+        <li>
+          <div>
+            <div class="menu-item">
+              <span class="item-name">Turkey Pesto Panini</span>
+              <span class="item-dot"></span>
+              <span class="item-price">$9.00</span>
+            </div>
+            <div class="item-desc">Add bacon for +$1.50</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="menu-item">
+              <span class="item-name">Belgium Waffle</span>
+              <span class="item-dot"></span>
+              <span class="item-price">$8.00</span>
+            </div>
+            <div class="item-desc">Housemade, fresh daily</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="menu-item">
+              <span class="item-name">Blueberry Muffin</span>
+              <span class="item-dot"></span>
+              <span class="item-price">$3.50</span>
+            </div>
+            <div class="item-desc">Baked fresh each morning</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="menu-item">
+              <span class="item-name">Donut Holes</span>
+              <span class="item-dot"></span>
+              <span class="item-price">$4.00</span>
+            </div>
+            <div class="item-desc">Special of the day, ask us!</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- VIBE -->
+<section class="vibe">
+  <div class="vibe-card reveal">
+    <div class="vibe-bg vibe-bg-1"></div>
+    <div class="vibe-overlay"></div>
+    <div class="vibe-tag">Study Spot</div>
+    <div class="vibe-label">
+      <div class="vibe-title">Cozy &<br>Welcoming</div>
+      <div class="vibe-sub">Outlets • Fast WiFi</div>
+    </div>
+  </div>
+  <div class="vibe-card reveal reveal-delay-1">
+    <div class="vibe-bg vibe-bg-2"></div>
+    <div class="vibe-overlay"></div>
+    <div class="vibe-tag">Live Music</div>
+    <div class="vibe-label">
+      <div class="vibe-title">Events &<br>Community</div>
+      <div class="vibe-sub">Follow @bellescoffeehouse</div>
+    </div>
+  </div>
+  <div class="vibe-card reveal reveal-delay-2">
+    <div class="vibe-bg vibe-bg-3"></div>
+    <div class="vibe-overlay"></div>
+    <div class="vibe-tag">Modern Rustic</div>
+    <div class="vibe-label">
+      <div class="vibe-title">Beautiful<br>Space</div>
+      <div class="vibe-sub">Plants • Fresh Flowers</div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT -->
+<section class="visit" id="visit">
+  <div class="reveal">
+    <div class="visit-map">
+      <div class="map-placeholder">
+        <div class="map-pin"></div>
+        <div class="map-address">116 N Michigan Ave<br>Big Rapids, MI 49307</div>
+        <div class="map-city">Downtown Big Rapids</div>
+      </div>
+    </div>
+  </div>
+  <div class="visit-info reveal reveal-delay-1">
+    <div class="section-tag">Come See Us</div>
+    <h2 class="section-h2">Find us<br>downtown.</h2>
+    <div class="visit-hours">
+      <div class="hours-row">
+        <span class="hours-day">Monday – Friday</span>
+        <span class="hours-time">7:00am – 3:00pm</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Saturday</span>
+        <span class="hours-time">9:00am – 4:00pm</span>
+      </div>
+      <div class="hours-row">
+        <span class="hours-day">Sunday</span>
+        <span class="hours-closed">Closed</span>
+      </div>
+    </div>
+    <div class="visit-contact">
+      <a href="tel:2312873271" class="contact-item">
+        <div class="contact-icon">📞</div>
+        (231) 287-3271
+      </a>
+      <a href="https://www.instagram.com/bellescoffeehouse" class="contact-item">
+        <div class="contact-icon">📸</div>
+        @bellescoffeehouse
+      </a>
+      <a href="#" class="contact-item">
+        <div class="contact-icon">📍</div>
+        116 N Michigan Ave, Big Rapids
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Belle's Coffeehouse</div>
+    <div class="footer-tagline">Your small town coffee shop · Downtown Big Rapids</div>
+  </div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#visit">Visit</a>
+  </div>
+  <div class="footer-social">
+    <a href="https://www.instagram.com/bellescoffeehouse" class="social-btn">📸</a>
+    <a href="https://www.facebook.com/p/Belles-Coffeehouse-61558965009337/" class="social-btn">👤</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal')
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') })
+  }, { threshold: 0.12 })
+  reveals.forEach(el => observer.observe(el))
+
+  // Trigger hero elements immediately
+  document.querySelectorAll('.hero .reveal').forEach(el => el.classList.add('visible'))
+</script>
+</body>
+</html>
